@@ -8,14 +8,12 @@ const PORT = 3000;
 
 app.use(cors());
 
-// Connect to SQLite
 const dbPath = path.join(__dirname, "dua_main.sqlite");
 const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READONLY, (err) => {
   if (err) return console.error("Error opening database:", err.message);
   console.log("Connected to dua_main.sqlite");
 });
 
-// Endpoint: Get all categories
 app.get("/categories", (req, res) => {
   const sql = `SELECT id, cat_id, cat_name_bn, cat_name_en, no_of_subcat, no_of_dua, cat_icon FROM category`;
   db.all(sql, [], (err, rows) => {
@@ -24,7 +22,6 @@ app.get("/categories", (req, res) => {
   });
 });
 
-// Endpoint: Get subcategories by category ID
 app.get("/subcategories/:cat_id", (req, res) => {
   const { cat_id } = req.params;
   const sql = `SELECT id, cat_id, subcat_id, subcat_name_bn, subcat_name_en, no_of_dua FROM sub_category WHERE cat_id = ?`;
@@ -34,7 +31,6 @@ app.get("/subcategories/:cat_id", (req, res) => {
   });
 });
 
-// Endpoint: Get duas by subcategory ID
 app.get("/displaydua/:cat_id", (req, res) => {
   const { cat_id } = req.params;
   const sql = `
@@ -50,7 +46,6 @@ app.get("/displaydua/:cat_id", (req, res) => {
   });
 });
 
-// Endpoint: Get duas by subcategory ID
 app.get("/duas/:subcat_id", (req, res) => {
   const { subcat_id } = req.params;
   const sql = `
@@ -66,7 +61,6 @@ app.get("/duas/:subcat_id", (req, res) => {
   });
 });
 
-// Optional: Get dua by dua_id
 app.get("/dua/:dua_id", (req, res) => {
   const { dua_id } = req.params;
   const sql = `
@@ -81,7 +75,7 @@ app.get("/dua/:dua_id", (req, res) => {
 // Root route
 app.get("/", (req, res) => {
   res.send(
-    "📖 Dua API is running. Use endpoints like /categories, /subcategories/:cat_id, /duas/:subcat_id"
+    "📖 Dua API is running. Use endpoints like /categories, /subcategories/:cat_id, /displaydua/:cat_id, /duas/:subcat_id"
   );
 });
 
