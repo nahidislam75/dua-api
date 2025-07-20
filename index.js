@@ -40,7 +40,7 @@ app.get("/duas/:subcat_id", (req, res) => {
   const sql = `
     SELECT id, cat_id, subcat_id, dua_id, dua_name_en, dua_name_bn, top_bn, top_en,
            dua_arabic, dua_indopak, clean_arabic, transliteration_bn, transliteration_en, translation_bn, translation_en,
-           bottom_bd, bottom_en, refference_bn, refference_en, audio
+           bottom_bn, bottom_en, refference_bn, refference_en, audio
     FROM dua
     WHERE subcat_id = ?
   `;
