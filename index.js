@@ -42,7 +42,7 @@ app.get("/duas/:cat_id", (req, res) => {
            dua_arabic, dua_indopak, clean_arabic, transliteration_bn, transliteration_en, translation_bn, translation_en,
            bottom_bn, bottom_en, refference_bn, refference_en, audio
     FROM dua
-    WHERE subcat_id = ?
+    WHERE cat_id = ?
   `;
   db.all(sql, [cat_id], (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
