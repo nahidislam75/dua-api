@@ -36,7 +36,7 @@ app.get("/subcategories/:cat_id", (req, res) => {
 
 // Endpoint: Get duas by subcategory ID
 app.get("/duas/:cat_id", (req, res) => {
-  const { subcat_id } = req.params;
+  const { cat_id } = req.params;
   const sql = `
     SELECT id, cat_id, subcat_id, dua_id, dua_name_en, dua_name_bn, top_bn, top_en,
            dua_arabic, dua_indopak, clean_arabic, transliteration_bn, transliteration_en, translation_bn, translation_en,
@@ -44,7 +44,7 @@ app.get("/duas/:cat_id", (req, res) => {
     FROM dua
     WHERE subcat_id = ?
   `;
-  db.all(sql, [subcat_id], (err, rows) => {
+  db.all(sql, [cat_id], (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(rows);
   });
