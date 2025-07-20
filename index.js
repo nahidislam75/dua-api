@@ -35,20 +35,20 @@ app.get("/subcategories/:cat_id", (req, res) => {
 });
 
 // Endpoint: Get duas by subcategory ID
-// app.get("/duas/:cat_id", (req, res) => {
-//   const { cat_id } = req.params;
-//   const sql = `
-//     SELECT id, cat_id, subcat_id, dua_id, dua_name_en, dua_name_bn, top_bn, top_en,
-//            dua_arabic, dua_indopak, clean_arabic, transliteration_bn, transliteration_en, translation_bn, translation_en,
-//            bottom_bn, bottom_en, refference_bn, refference_en, audio
-//     FROM dua
-//     WHERE cat_id = ?
-//   `;
-//   db.all(sql, [cat_id], (err, rows) => {
-//     if (err) return res.status(500).json({ error: err.message });
-//     res.json(rows);
-//   });
-// });
+app.get("/displaydua/:cat_id", (req, res) => {
+  const { cat_id } = req.params;
+  const sql = `
+    SELECT id, cat_id, subcat_id, dua_id, dua_name_en, dua_name_bn, top_bn, top_en,
+           dua_arabic, dua_indopak, clean_arabic, transliteration_bn, transliteration_en, translation_bn, translation_en,
+           bottom_bn, bottom_en, refference_bn, refference_en, audio
+    FROM dua
+    WHERE cat_id = ?
+  `;
+  db.all(sql, [cat_id], (err, rows) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(rows);
+  });
+});
 
 // Endpoint: Get duas by subcategory ID
 app.get("/duas/:subcat_id", (req, res) => {
